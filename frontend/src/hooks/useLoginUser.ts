@@ -5,11 +5,13 @@ import useSWR from 'swr';
 const GROUP_PUBLISH_ALLOWED = 'PublishAllowed';
 const GROUP_CREATING_BOT_ALLOWED = 'CreatingBotAllowed';
 const GROUP_ADMIN = 'Admin';
+const GROUP_CHAT_ONLY = 'ChatOnly';
 
 const useLoginUser = () => {
   const [isAllowApiSettings, setIsAllowApiSettings] = useState(false);
   const [isAllowCreatingBot, setIsAllowCreatingBot] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isChatOnly, setIsChatOnly] = useState(false);
 
   const { data: session } = useSWR('current-session', () => fetchAuthSession());
 
@@ -39,10 +41,12 @@ const useLoginUser = () => {
         )
       );
       setIsAdmin(groups.some((group) => group === GROUP_ADMIN));
+      setIsChatOnly(groups.some((group) => group === GROUP_CHAT_ONLY));
     } else {
       setIsAllowApiSettings(false);
       setIsAllowCreatingBot(false);
       setIsAdmin(false);
+      setIsChatOnly(false);
     }
   }, [groups, session]);
 
@@ -50,6 +54,7 @@ const useLoginUser = () => {
     isAllowApiSettings,
     isAllowCreatingBot,
     isAdmin,
+    isChatOnly,
     userGroups: Array.isArray(groups)
       ? groups.map((group) => group?.toString() ?? '')
       : [],

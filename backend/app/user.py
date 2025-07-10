@@ -34,6 +34,9 @@ class User(UserWithoutGroups):
     def is_publish_allowed(self) -> bool:
         return self.is_admin() or "PublishAllowed" in self.groups
 
+    def is_chat_only(self) -> bool:
+        return "ChatOnly" in self.groups
+
     @classmethod
     def from_decoded_token(cls, token: dict) -> Self:
         return cls(
