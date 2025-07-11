@@ -31,7 +31,7 @@ Parameters:
     Default: "https://github.com/MateIT92/bedrock-chat-custom.git"
   Version:
     Type: String
-    Default: "v3.2.1"
+    Default: "v3.2.1-custom"
 
 Resources:
   ProjectRole:
